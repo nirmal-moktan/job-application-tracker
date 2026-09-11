@@ -1,6 +1,7 @@
 def add_applications(applications, new_application):
     next_id = len(applications) + 1
     applications[next_id] = new_application
+    return f"New application added."
 
 def view_applications(applications):
     for application_id, application in applications.items():
@@ -8,46 +9,39 @@ def view_applications(applications):
         for title, information in application.items():
             print(f"{title}: {information}")
             
-def update_applications(applications, update):
-    application_update = []
+def update_applications(applications, application_id, company ="", job_title="",location="", 
+                        deadline ="", status="", start_date=""):
+    if application_id not in applications:
+        return "Application not found."  
+    application = applications[application_id]
+    if company:
+        application["company"] = company
+    if job_title:
+        application["job_title"] = job_title
+    if location:
+        application["location"] = location
+    if deadline:
+        application["deadline"] = deadline
+    if status:
+        if status in [
+            "Applied",
+            "Interview",
+            "Offer",
+            "Accepted",
+            "Rejected",
+            "Withdrawn"
+        ]:
+         application["status"] = status
+        else:
+            return "Invalid status."
+    if start_date:
+        application["start_date"] = start_date
+    return "Application updated."
     
 
-def delete_applications(applications):
-    pass
-applications = {
-    1: {
-        "company": "Jacksonville State University",
-        "job_title": "Software Engineering Intern",
-        "location": "Jacksonville, AL",
-        "deadline": "2026-10-01",
-        "status": "Applied",
-        "start_date": "2027-01-15"
-    },
-
-    2: {
-        "company": "Regions Bank",
-        "job_title": "Technology Intern",
-        "location": "Birmingham, AL",
-        "deadline": "2026-10-15",
-        "status": "Interview",
-        "start_date": "2027-05-20"
-    },
-
-    3: {
-        "company": "Southern Company",
-        "job_title": "Software Developer Intern",
-        "location": "Atlanta, GA",
-        "deadline": "2026-09-20",
-        "status": "Rejected",
-        "start_date": "2027-05-15"
-    }
-}
-
-new_application = {
-    "company": "Blue Cross Blue Shield of Alabama",
-    "job_title": "IT Intern",
-    "location": "Birmingham, AL",
-    "deadline": "2026-11-01",
-    "status": "Applied",
-    "start_date": "2027-05-25"
-}
+def delete_applications(applications, application_id):
+    if application_id not in applications:
+        return "Application not found."
+    del applications[application_id]
+    return f"Application {application_id} deleted."
+    

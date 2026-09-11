@@ -33,7 +33,7 @@ applications = {
     }
 }
 
-new_application = {
+new_application_1 = {
     "company": "Blue Cross Blue Shield of Alabama",
     "job_title": "IT Intern",
     "location": "Birmingham, AL",
@@ -43,8 +43,26 @@ new_application = {
 }
 
 def main():
+    print("\n=== CURRENT APPLICATIONS ===\n")
     view_applications(applications)
 
+    print("\n=== ADD APPLICATION ===\n")
+    message = add_applications(applications, new_application_1)
+    print(message)
+
+    print("\n=== UPDATED LIST ===\n")
+    view_applications(applications)
+
+    print("\n=== UPDATE APPLICATION ===\n")
+    message = update_applications(applications, 2, status="Offer")
+    print(message)
+
+    print("\n=== DELETE APPLICATION ===\n")
+    message = delete_applications(applications, 1)
+    print(message)
+
+    print("\n=== FINAL APPLICATIONS ===\n")
+    view_applications(applications)
 
 if __name__ == "__main__":
     main()
