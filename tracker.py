@@ -1,8 +1,14 @@
 from datetime import datetime
 def add_applications(applications, new_application):
-    next_id = len(applications) + 1
+    validate_text(new_application["company"])
+    validate_text(new_application["job_title"])
+    validate_text(new_application["location"])
+    validate_date(new_application["deadline"])
+    validate_date(new_application["start_date"])
+    new_application["status"] = validate_status(new_application["status"])
+    next_id = max(applications) + 1
     applications[next_id] = new_application
-    return f"New application added."
+    return "New application added."
 
 def view_applications(applications):
     for application_id, application in applications.items():
@@ -16,26 +22,21 @@ def update_applications(applications, application_id, company ="", job_title="",
         return "Application not found."  
     application = applications[application_id]
     if company:
+        validate_text(company)
         application["company"] = company
     if job_title:
+        validate_text(job_title)
         application["job_title"] = job_title
     if location:
+        validate_text(location)
         application["location"] = location
     if deadline:
+        validate_date(deadline)
         application["deadline"] = deadline
     if status:
-        if status in [
-            "Applied",
-            "Interview",
-            "Offer",
-            "Accepted",
-            "Rejected",
-            "Withdrawn"
-        ]:
-         application["status"] = status
-        else:
-            return "Invalid status."
+        application["status"] = validate_status(status)
     if start_date:
+        validate_date(start_date)
         application["start_date"] = start_date
     return "Application updated."
     
@@ -58,5 +59,5 @@ def validate_status(status: str): #validates status input from the allowed optio
     valid_status = {'Applied','Interview','Offer','Accepted','Rejected','Withdrawn','No Response'}
     cleaned_status = status.title().strip()
     if cleaned_status not in valid_status:
-        raise ValueError('Invalid status: please enter either of the following (Applied,Interview,Offer,Accepted,Rejected,Withdrawn,No Response)')
-    
+        raise ValueError('Invalid status: please enter Applied, Interview, Offer, Accepted, Rejected, Withdrawn, or No Response')
+    return cleaned_status
