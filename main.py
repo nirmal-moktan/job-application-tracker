@@ -1,7 +1,9 @@
+#importing all the functions from tracker.py
 from tracker import add_applications
 from tracker import view_applications
 from tracker import update_applications
 from tracker import delete_applications
+from tracker import create_database
 
 ################ Sample Data #####################
 applications = {
@@ -43,6 +45,7 @@ new_application_1 = {
 }
 
 def main():
+    create_database()
     print("\n=== CURRENT APPLICATIONS ===\n")
     view_applications(applications)
 

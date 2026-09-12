@@ -1,4 +1,23 @@
 from datetime import datetime
+import sqlite3
+#CRUD Create, Read, Update and Delete items in the database
+def create_database():
+    connection = sqlite3.connect("job_tracker.db") #creates a database if it does not exist
+    cursor = connection.cursor() #doorway to our database, used when executing sql commands and managing and fetching results
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS applications (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        company TEXT NOT NULL,
+        job_title TEXT NOT NULL,
+        location TEXT NOT NULL,
+        deadline TEXT NOT NULL,
+        start_date TEXT NOT NULL,
+        status TEXT NOT NULL
+        )
+    """)
+    connection.commit() #saves the table
+    connection.close()
+
 def add_applications(applications, new_application):
     validate_text(new_application["company"])
     validate_text(new_application["job_title"])
@@ -6,7 +25,7 @@ def add_applications(applications, new_application):
     validate_date(new_application["deadline"])
     validate_date(new_application["start_date"])
     new_application["status"] = validate_status(new_application["status"])
-    next_id = max(applications) + 1
+    next_id = max(applications, default=0) + 1
     applications[next_id] = new_application
     return "New application added."
 
