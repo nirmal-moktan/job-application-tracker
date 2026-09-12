@@ -1,3 +1,4 @@
+from datetime import datetime
 def add_applications(applications, new_application):
     next_id = len(applications) + 1
     applications[next_id] = new_application
@@ -44,4 +45,18 @@ def delete_applications(applications, application_id):
         return "Application not found."
     del applications[application_id]
     return f"Application {application_id} deleted."
+    
+def validate_text(value: str): #validates company name, job title and location inputs
+    if not value.strip():
+        raise ValueError('This entry cannot be empty!')
+def validate_date(date): #validates start date and deadline inputs
+    try:
+        datetime.strptime(date,"%Y-%m-%d")
+    except ValueError:
+        raise ValueError('Please enter date in correct format: YYYY-MM-DD')
+def validate_status(status: str): #validates status input from the allowed options
+    valid_status = {'Applied','Interview','Offer','Accepted','Rejected','Withdrawn','No Response'}
+    cleaned_status = status.title().strip()
+    if cleaned_status not in valid_status:
+        raise ValueError('Invalid status: please enter either of the following (Applied,Interview,Offer,Accepted,Rejected,Withdrawn,No Response)')
     
