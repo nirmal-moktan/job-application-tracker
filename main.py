@@ -46,26 +46,26 @@ new_application_1 = {
 
 def main():
     create_database()
-    print("\n=== CURRENT APPLICATIONS ===\n")
-    view_applications(applications)
+    #print("\n=== CURRENT APPLICATIONS ===\n")
+    #view_applications(applications)
 
     print("\n=== ADD APPLICATION ===\n")
-    message = add_applications(applications, new_application_1)
+    message = add_applications(new_application_1)
     print(message)
 
-    print("\n=== UPDATED LIST ===\n")
-    view_applications(applications)
+    #rint("\n=== UPDATED LIST ===\n")
+    #view_applications(applications)
 
-    print("\n=== UPDATE APPLICATION ===\n")
-    message = update_applications(applications, 2, status="Offer")
-    print(message)
+    #print("\n=== UPDATE APPLICATION ===\n")
+    #message = update_applications(applications, 2, status="Offer")
+    #print(message)
 
-    print("\n=== DELETE APPLICATION ===\n")
-    message = delete_applications(applications, 1)
-    print(message)
+    #print("\n=== DELETE APPLICATION ===\n")
+    #message = delete_applications(applications, 1)
+    #print(message)
 
-    print("\n=== FINAL APPLICATIONS ===\n")
-    view_applications(applications)
+    #print("\n=== FINAL APPLICATIONS ===\n")
+    #view_applications(applications)
 
 if __name__ == "__main__":
     main()

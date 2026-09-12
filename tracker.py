@@ -1,7 +1,7 @@
 from datetime import datetime
 import sqlite3
 #CRUD Create, Read, Update and Delete items in the database
-def create_database():
+def create_database(): #makes sure the database file and table structure exist
     connection = sqlite3.connect("job_tracker.db") #creates a database if it does not exist
     cursor = connection.cursor() #doorway to our database, used when executing sql commands and managing and fetching results
     cursor.execute("""
@@ -18,15 +18,32 @@ def create_database():
     connection.commit() #saves the table
     connection.close()
 
-def add_applications(applications, new_application):
+def add_applications(new_application):
     validate_text(new_application["company"])
     validate_text(new_application["job_title"])
     validate_text(new_application["location"])
     validate_date(new_application["deadline"])
     validate_date(new_application["start_date"])
     new_application["status"] = validate_status(new_application["status"])
-    next_id = max(applications, default=0) + 1
-    applications[next_id] = new_application
+    connection = sqlite3.connect("job_tracker.db") #opens the database to insert data
+    cursor = connection.cursor()
+    cursor.execute("""
+    INSERT INTO applications
+    (company, job_title, location, deadline, start_date, status)
+    VALUES (?,?,?,?,?,?)
+    """,(
+        new_application["company"],
+        new_application["job_title"],
+        new_application["location"],
+        new_application["deadline"],
+        new_application["start_date"],
+        new_application["status"]   
+    ))
+    connection.commit()
+    connection.close()
+    
+    #next_id = max(applications, default=0) + 1
+    #applications[next_id] = new_application
     return "New application added."
 
 def view_applications(applications):
