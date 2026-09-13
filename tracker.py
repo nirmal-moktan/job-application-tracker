@@ -46,41 +46,67 @@ def add_applications(new_application):
     #applications[next_id] = new_application
     return "New application added."
 
-def view_applications(applications):
-    for application_id, application in applications.items():
-        print(f"Application {application_id}")
-        for title, information in application.items():
-            print(f"{title}: {information}")
+def view_applications():
+    connection = sqlite3.connect("job_tracker.db")
+    cursor = connection.cursor()
+    cursor.execute("SELECT * from applications") #select every element from the applications table
+    applications = cursor.fetchall()
+
+    for application in applications:
+        print(application)
+    connection.close()
             
-def update_applications(applications, application_id, company ="", job_title="",location="", 
+def update_applications(application_id, company ="", job_title="",location="", 
                         deadline ="", status="", start_date=""):
-    if application_id not in applications:
-        return "Application not found."  
-    application = applications[application_id]
+    try:
+        application_id = int(application_id)
+    except (ValueError, TypeError):
+        return "Application id must be an integer."  
+    connection = sqlite3.connect("job_tracker.db")
+    cursor = connection.cursor()
+    cursor.execute("SELECT * FROM applications WHERE id = ?",(application_id,))
+    application = cursor.fetchone()
+    if application is None:
+        connection.close()
+        return "Application not found."
+    
     if company:
         validate_text(company)
-        application["company"] = company
+        cursor.execute("UPDATE applications SET company = ? WHERE id = ?",(company,application_id))
     if job_title:
         validate_text(job_title)
-        application["job_title"] = job_title
+        cursor.execute("UPDATE applications SET job_title = ? WHERE id = ?",(job_title, application_id))
     if location:
         validate_text(location)
-        application["location"] = location
+        cursor.execute("UPDATE applications SET location = ? WHERE id = ?",(location, application_id))
     if deadline:
         validate_date(deadline)
-        application["deadline"] = deadline
+        cursor.execute("UPDATE applications SET deadline = ? WHERE id = ?",(deadline, application_id))
     if status:
-        application["status"] = validate_status(status)
+        status = validate_status(status)
+        cursor.execute("UPDATE applications SET status = ? WHERE id = ?",(status, application_id))
     if start_date:
         validate_date(start_date)
-        application["start_date"] = start_date
+        cursor.execute("UPDATE applications SET start_date = ? WHERE id = ?",(start_date, application_id))
+    connection.commit()
+    connection.close()    
     return "Application updated."
     
 
-def delete_applications(applications, application_id):
-    if application_id not in applications:
-        return "Application not found."
-    del applications[application_id]
+def delete_applications(application_id):
+    try:
+        application_id = int(application_id)
+    except ValueError:
+        return "Application id must be an integer."
+    connection = sqlite3.connect("job_tracker.db")
+    cursor = connection.cursor()
+    cursor.execute("DELETE FROM applications WHERE id = ?",(application_id,)) #the trailing comma means it is a tuple containing one item
+    #sqlite also only deletes if id is present if non existent id is passes accidently no row will be deleted
+    if cursor.rowcount == 0: #no row deleted
+        connection.close()
+        return "Application id not found"
+    connection.commit()
+    connection.close()
     return f"Application {application_id} deleted."
     
 def validate_text(value: str): #validates company name, job title and location inputs
