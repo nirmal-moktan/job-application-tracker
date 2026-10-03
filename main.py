@@ -11,27 +11,27 @@ applications = {
         "company": "Jacksonville State University",
         "job_title": "Software Engineering Intern",
         "location": "Jacksonville, AL",
-        "deadline": "2026-10-01",
+        "applied_date": "2026-10-01",
         "status": "Applied",
-        "start_date": "2027-01-15"
+        "remark": "First ever job"
     },
 
     2: {
         "company": "Regions Bank",
         "job_title": "Technology Intern",
         "location": "Birmingham, AL",
-        "deadline": "2026-10-15",
+        "applied_date": "2026-10-15",
         "status": "Interview",
-        "start_date": "2027-05-20"
+        "remark": "abc"
     },
 
     3: {
         "company": "Southern Company",
         "job_title": "Software Developer Intern",
         "location": "Atlanta, GA",
-        "deadline": "2026-09-20",
+        "applied_date": "2026-09-20",
         "status": "Rejected",
-        "start_date": "2027-05-15"
+        "remark": "2027-05-15"
     }
 }
 
@@ -39,17 +39,17 @@ new_application_1 = {
     "company": "Blue Cross Blue Shield of Alabama",
     "job_title": "IT Intern",
     "location": "Birmingham, AL",
-    "deadline": "2026-11-01",
+    "applied_date": "2026-11-01",
     "status": "Applied",
-    "start_date": "2027-05-25"
+    "remark": "2027-05-25"
 }
 
 def main():
     create_database()
-    print("\n=== CURRENT APPLICATIONS ===\n")
-    view_applications()
+    
+    
 
-    print("\n=== ADD APPLICATION ===\n")
+    
     message1 = add_applications(applications[1])
     print(message1)
     message2 = add_applications(applications[2])
@@ -57,7 +57,7 @@ def main():
     print(add_applications(applications[3]))
     print(add_applications(new_application_1))
 
-    print("\n=== UPDATED LIST ===\n")
+    '''print("\n=== UPDATED LIST ===\n")
     view_applications()
 
     print("\n=== DELETE APPLICATION ===\n")
@@ -73,7 +73,7 @@ def main():
     print(update_applications(4, status="Interview"))
 
     print("\n=== FINAL APPLICATIONS ===\n")
-    view_applications()
+    view_applications()'''
 
 if __name__ == "__main__":
     main()

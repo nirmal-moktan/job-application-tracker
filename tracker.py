@@ -10,9 +10,9 @@ def create_database(): #makes sure the database file and table structure exist
         company TEXT NOT NULL,
         job_title TEXT NOT NULL,
         location TEXT NOT NULL,
-        deadline TEXT NOT NULL,
-        start_date TEXT NOT NULL,
-        status TEXT NOT NULL
+        applied_date TEXT NOT NULL,
+        status TEXT NOT NULL,
+        remark TEXT        
         )
     """)
     connection.commit() #saves the table
@@ -21,23 +21,22 @@ def create_database(): #makes sure the database file and table structure exist
 def add_applications(new_application):
     validate_text(new_application["company"])
     validate_text(new_application["job_title"])
-    validate_text(new_application["location"])
-    validate_date(new_application["deadline"])
-    validate_date(new_application["start_date"])
+    validate_text(new_application["location"])  
+    validate_date(new_application["applied_date"])      
     new_application["status"] = validate_status(new_application["status"])
     connection = sqlite3.connect("job_tracker.db") #opens the database to insert data
     cursor = connection.cursor()
     cursor.execute("""
     INSERT INTO applications
-    (company, job_title, location, deadline, start_date, status)
+    (company, job_title, location, applied_date, status, remark)
     VALUES (?,?,?,?,?,?)
     """,(
         new_application["company"],
         new_application["job_title"],
-        new_application["location"],
-        new_application["deadline"],
-        new_application["start_date"],
-        new_application["status"]   
+        new_application["location"],  
+        new_application["applied_date"],     
+        new_application["status"],
+        new_application.get("remark", "")
     ))
     connection.commit()
     connection.close()
@@ -51,13 +50,11 @@ def view_applications():
     cursor = connection.cursor()
     cursor.execute("SELECT * from applications") #select every element from the applications table
     applications = cursor.fetchall()
-
-    for application in applications:
-        print(application)
     connection.close()
+    return applications
             
-def update_applications(application_id, company ="", job_title="",location="", 
-                        deadline ="", status="", start_date=""):
+def update_applications(application_id, company ="", job_title="",location="", applied_date ="",
+                        status="", remark=""):
     try:
         application_id = int(application_id)
     except (ValueError, TypeError):
@@ -79,15 +76,15 @@ def update_applications(application_id, company ="", job_title="",location="",
     if location:
         validate_text(location)
         cursor.execute("UPDATE applications SET location = ? WHERE id = ?",(location, application_id))
-    if deadline:
-        validate_date(deadline)
-        cursor.execute("UPDATE applications SET deadline = ? WHERE id = ?",(deadline, application_id))
+    if applied_date:
+        validate_date(applied_date)
+        cursor.execute("UPDATE applications SET applied_date = ? WHERE id = ?",(applied_date, application_id))
     if status:
         status = validate_status(status)
         cursor.execute("UPDATE applications SET status = ? WHERE id = ?",(status, application_id))
-    if start_date:
-        validate_date(start_date)
-        cursor.execute("UPDATE applications SET start_date = ? WHERE id = ?",(start_date, application_id))
+    if remark:
+        
+        cursor.execute("UPDATE applications SET remark = ? WHERE id = ?",(remark, application_id))
     connection.commit()
     connection.close()    
     return "Application updated."

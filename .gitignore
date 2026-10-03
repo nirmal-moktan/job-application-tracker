@@ -2,3 +2,4 @@ __pycache__/
 *.pyc
 tempCodeRunnerFile.py
 job_tracker.db
+.venv
