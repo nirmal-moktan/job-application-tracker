@@ -4,6 +4,7 @@
         <meta charset ="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Job Application Tracker</title>
+        <link rel="stylesheet" href="{{url_for('static',filename = 'style.css')}}">
     </head>
     <body>
         <h1>Job Application Tracker</h1>
@@ -28,7 +29,19 @@
                     <td>{{application[2]}} </td>
                     <td>{{application[3]}} </td>
                     <td>{{application[4]}} </td>
-                    <td>{{application[5]}} </td>
+                    <td>
+                        <form action="{{url_for('update_status',application_id=application[0])}}" method="POST">
+                        <select name="status" onchange="this.form.submit()">
+                            <option {% if application[5] == "Applied"%} selected {% endif %}>Applied</option>
+                            <option {% if application[5] == "Interview" %} selected {% endif %}>Interview</option>
+                            <option {%  if application[5] == "Offer" %} selected {% endif %}>Offer</option>
+                            <option {% if application[5] == "Accepted" %}selected{% endif %}>Accepted</option>
+                            <option {% if application[5] == "Rejected" %}selected{% endif %}>Rejected</option>
+                            <option {% if application[5] == "Withdrawn" %}selected{% endif %}>Withdrawn</option>
+                            <option {% if application[5] == "No Response" %}selected{% endif %}>No Response</option>
+                        </select>
+                        </form>
+                    </td>
                     <td>{{application[6]}} </td>
                 </tr>
                 {% endfor %}
