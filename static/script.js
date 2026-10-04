@@ -17,6 +17,7 @@ const editModal = document.getElementById("edit-modal");
 
 editButtons.forEach(function (button){
     button.addEventListener("click", function(){
+        document.getElementById("edit-id").value = button.dataset.id;
         document.getElementById("edit-company").value = button.dataset.company;
         document.getElementById("edit-job-title").value = button.dataset.jobTitle;
         document.getElementById("edit-location").value = button.dataset.location;
@@ -31,6 +32,28 @@ editButtons.forEach(function (button){
 const cancelEditButton = document.getElementById("cancel-edit-button");
 cancelEditButton.addEventListener("click",function(){
     editModal.hidden = true;
+    const openDetails = document.querySelector("details[open]");
+    if (openDetails) {
+        openDetails.removeAttribute("open");
+    }
+});
+
+const deleteButtons = document.querySelectorAll(".delete-button");
+const deleteModal = document.getElementById("delete-modal");
+
+deleteButtons.forEach(function (button){
+    button.addEventListener("click", function(){
+        document.getElementById("delete-id").value = button.dataset.id;
+        deleteModal.hidden = false;
+    });
+});
+const cancelDeleteButton = document.getElementById("cancel-delete-button");
+cancelDeleteButton.addEventListener("click", function(){
+    deleteModal.hidden = true;
+    const openDetails = document.querySelector("details[open]");
+    if (openDetails) {
+        openDetails.removeAttribute("open");
+    }
 });
 
 

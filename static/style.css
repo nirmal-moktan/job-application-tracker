@@ -17,10 +17,14 @@ th {
 tr:hover {
     background-color: #f9f9f9;
 }
-#add-modal[hidden] {
+#add-modal[hidden],
+#edit-modal[hidden],
+#delete-modal[hidden] {
     display:none;
 }
-#add-modal {
+#add-modal,
+#edit-modal,
+#delete-modal {
     position: fixed;
     top: 0;
     left:0;
