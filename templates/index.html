@@ -8,7 +8,81 @@
     </head>
     <body>
         <h1>Job Application Tracker</h1>
+        <button id="add-application-button">Add Application</button>
+        <div id="add-modal" hidden>
+            <div class="modal-content">
+                <h2>Add Application</h2>
+                <form id="add-application-form" action="{{ url_for('add_application')}}" method="POST">
+                    <label>Company</label>
+                    <input type="text" name="company" required>
 
+                    <label>Job Title</label>
+                    <input type="text" name="job_title" required>
+
+                    <label>Location</label>
+                    <input type="text" name="location" required>
+
+                    <label>Applied Date</label>
+                    <input type="date" name="applied_date" required>
+
+                    <label>Status</label>
+                    <select name="status">
+                        <option>Applied</option>
+                        <option>Interview</option>
+                        <option>Offer</option>
+                        <option>Accepted</option>
+                        <option>Rejected</option>
+                        <option>Withdrawn</option>
+                        <option>No Response</option>
+                    </select>
+
+                    <label>Remarks</label>
+                    <input type="text" name="remark">
+
+                    <button type="button" id="cancel-add-button">Cancel</button>
+                    <button type="submit">Save</button>
+                </form>                
+            </div>            
+        </div>
+
+        <div id="edit-modal" hidden>
+            <div class="modal-content">
+                <h2>Edit Application</h2>
+
+                <form>
+                    <label>Company</label>
+                    <input type="text" id="edit-company" name="company">
+
+                    <label>Job Title</label>
+                    <input type="text" id="edit-job-title" name="job_title">
+
+                    <label>Location</label>
+                    <input type="text" id="edit-location" name="location">
+
+                    <label>Applied Date</label>
+                    <input type="date" id="edit-date" name="applied_date">
+
+                    <label>Status</label>
+                    <select id="edit-status" name="status">
+                        <option>Applied</option>
+                        <option>Interview</option>
+                        <option>Offer</option>
+                        <option>Accepted</option>
+                        <option>Rejected</option>
+                        <option>Withdrawn</option>
+                        <option>No Response</option>
+                    </select>
+
+                    <label>Remarks</label>
+                    <input type="text" id="edit-remark" name="remark">
+
+                    <button type="button" id="cancel-edit-button">Cancel</button>
+                    <button type="submit">Save</button>
+                </form>
+
+            </div>
+        </div>
+        
         <table>
             <thead>
                 <tr>
@@ -19,6 +93,7 @@
                     <th>Applied Date</th>
                     <th>Status</th>
                     <th>Remarks</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -43,9 +118,26 @@
                         </form>
                     </td>
                     <td>{{application[6]}} </td>
+                    <td>
+                        <details>
+                            <summary>Actions</summary>
+                            <button type="button"
+                            class="edit-button"
+                            data-id="{{application[0]}}"
+                            data-company="{{application[1]}}"
+                            data-job-title="{{application[2]}}"
+                            data-location="{{application[3]}}"
+                            data-date="{{application[4]}}"
+                            data-status="{{application[5]}}"
+                            data-remark="{{application[6]}}"
+                            >Edit</button>
+                            <button tpye="button">Delete</button>
+                        </details>
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
+        <script src="{{ url_for('static',filename='script.js')}}"></script>
     </body>
 </html>

@@ -18,7 +18,7 @@ def create_database(): #makes sure the database file and table structure exist
     connection.commit() #saves the table
     connection.close()
 
-def add_applications(new_application):
+def add_applications(new_application: dict):
     validate_text(new_application["company"])
     validate_text(new_application["job_title"])
     validate_text(new_application["location"])  
