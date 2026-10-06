@@ -50,12 +50,12 @@ def main():
     
 
     
-    message1 = add_applications(applications[1])
+    '''message1 = add_applications(applications[1])
     print(message1)
     message2 = add_applications(applications[2])
     print(message2)
     print(add_applications(applications[3]))
-    print(add_applications(new_application_1))
+    print(add_applications(new_application_1))'''
 
     '''print("\n=== UPDATED LIST ===\n")
     view_applications()

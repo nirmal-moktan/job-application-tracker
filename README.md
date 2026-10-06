@@ -1,26 +1,49 @@
 # Job Application Tracker
 
-A full-stack web application built with Python, Flask, SQLite, HTML, CSS, and JavaScript for tracking and managing job applications.
+A full-stack web application for tracking and managing job applications, built with Python, Flask, SQLite, HTML, CSS, and JavaScript.
 
-This project started as a Python command-line application and evolved into a full-stack web application. It was built to practice how a frontend interface, Flask backend, application logic, and database work together in a complete software project.
+The project began as a Python command-line application and evolved into a browser-based application with persistent database storage and full CRUD functionality.
+
+![Job Application Tracker Dashboard](screenshots/application-dashboard.png)
 
 ## Features
 
-- Add new job applications through the web interface
-- View saved applications in a structured table
-- Edit existing application information
-- Delete applications with confirmation
-- Update application status directly from the table
-- Store application data persistently using SQLite
-- Validate text, dates, and application status
-- Use a built-in date picker for application dates
-- Use dropdown menus for application status
-- Use modal windows for adding, editing, and deleting applications
-- Keep stable application IDs even after records are deleted
+- Add, view, edit, and delete job applications
+- Update application status directly from the application table
+- Store application data persistently with SQLite
+- Validate application data before saving changes
+- Use modal forms for adding, editing, and deleting applications
+- Maintain stable application IDs after records are deleted
 
-## Application Information
+## Demo
 
-Each job application stores:
+### Add a Job Application
+
+Users can add a new application through a modal form with fields for the company, job title, location, applied date, status, and remarks.
+
+![Add Application Form](screenshots/add-application.png)
+
+### Edit an Application
+
+Existing applications can be edited through a pre-filled modal, allowing users to update application details without re-entering the entire record.
+
+![Edit Application Form](screenshots/edit-application.png)
+
+### Delete an Application
+
+Applications can be deleted through a confirmation modal to help prevent accidental removal.
+
+![Delete Application Confirmation](screenshots/delete-application.png)
+
+### Input Validation
+
+Application data is validated before changes are saved, helping prevent incomplete or invalid records from being stored.
+
+![Input Validation](screenshots/validation.png)
+
+## Application Data
+
+Each application stores:
 
 - Company
 - Job title
@@ -29,27 +52,14 @@ Each job application stores:
 - Status
 - Remarks
 
-Supported application statuses include:
-
-- Applied
-- Interview
-- Offer
-- Accepted
-- Rejected
-- Withdrawn
-- No Response
+Available statuses: `Applied`, `Interview`, `Offer`, `Accepted`, `Rejected`, `Withdrawn`, and `No Response`.
 
 ## Technologies
 
-- Python
-- Flask
-- SQLite
-- HTML
-- CSS
-- JavaScript
-- Jinja
-- Git
-- GitHub
+- **Backend:** Python, Flask
+- **Database:** SQLite
+- **Frontend:** HTML, CSS, JavaScript, Jinja2
+- **Version Control:** Git, GitHub
 
 ## Application Architecture
 
@@ -65,12 +75,33 @@ Python application logic
 SQLite database
 ```
 
-The browser provides the user interface. Flask handles web requests and connects the frontend to the Python application logic. SQLite stores application data persistently.
+The browser provides the user interface, while Flask handles incoming requests and connects those requests to the application's Python logic. The Python layer performs validation and database operations, and SQLite stores application data persistently.
+
+## What I Learned
+
+Building this project helped me understand how the different layers of a full-stack application work together.
+
+Through the project, I gained hands-on experience with:
+
+- Connecting a browser-based frontend to a Flask backend
+- Handling HTTP requests and routing with Flask
+- Performing CRUD operations with SQLite
+- Validating user input before database operations
+- Passing data between Flask and Jinja templates
+- Using JavaScript for client-side interactions and modal behavior
+- Organizing a multi-file application
+- Managing project changes with Git and GitHub
 
 ## Project Structure
 
 ```text
 job-application-tracker/
+├── screenshots/
+│   ├── application-dashboard.png
+│   ├── add-application.png
+│   ├── edit-application.png
+│   ├── delete-application.png
+│   └── validation.png
 ├── static/
 │   ├── script.js
 │   └── style.css
@@ -81,55 +112,39 @@ job-application-tracker/
 ├── tracker.py
 ├── .gitignore
 └── README.md
-```
-
-## Current Functionality
-
-The application currently supports full CRUD functionality from the web interface:
-
-- Create new job applications
-- Read and display saved applications
-- Update application information
-- Update application status
-- Delete applications
-- Persist all changes in SQLite
-
-The interface also includes:
-
-- Add Application modal
-- Edit Application modal with pre-filled application data
-- Delete confirmation modal
-- Status dropdowns
-- Date picker input
-- JavaScript-powered modal interactions
 
 ## Project Status
 
-This project is actively being improved.
+The MVP is complete and supports the core workflow for tracking job applications through the web interface.
+
+The project will continue to be refined with usability improvements, additional features, testing, and deployment.
 
 ### Planned Improvements
 
-- Improve the overall visual design
-- Improve responsiveness for different screen sizes
+- Improve responsiveness across different screen sizes
 - Add clearer user-facing validation messages
-- Improve modal animations and interactions
-- Add screenshots and project demonstrations
-- Explore public deployment
+- Add search, filtering, and sorting
+- Add automated tests
+- Deploy the application publicly
 
-## Purpose
+## Run Locally
 
-The goal of this project is to build a practical tool while developing a stronger understanding of full-stack software development.
+1. Clone the repository:
 
-Through this project, I practiced:
+```bash
+git clone https://github.com/nirmal-moktan/job-application-tracker.git
 
-- Connecting a frontend interface to a Python backend
-- Handling browser requests with Flask
-- Performing CRUD operations with SQLite
-- Validating user input
-- Passing data between Flask and Jinja templates
-- Using JavaScript for client-side interactions
-- Managing project changes with Git and GitHub
+2. Open the project folder
 
-## Future Direction
+cd job-application-tracker
 
-The project will continue to be refined with improved styling, usability, and deployment options while keeping the application simple and practical.
+3. Install Flask
+
+pip install flask
+
+4. Start the application
+
+python app.py
+
+5. Open the local address shown in the terminal in your browser
+
