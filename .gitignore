@@ -3,3 +3,4 @@ __pycache__/
 tempCodeRunnerFile.py
 job_tracker.db
 .venv
+.pytest_cache/
